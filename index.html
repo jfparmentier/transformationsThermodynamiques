@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="JF Parmentier">
+    <meta name="description" content="">
+
+    <title>Transformations thermodynamiques</title>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/extensionBoutons.css">
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Javascript
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="scripts/general.js"></script>
+    <script src="scripts/gestionSimulation.js"></script>
+
+</head>
+
+<body onload="initialisePage()">
+
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<div class="container" id="conteneur" style="margin-top: 1%;">
+
+    <div id="conteneurSVG">
+
+    </div>
+
+    <div class="row">
+        <!-- menu de gauche-->
+        <div class="three columns">
+            <h5>Paramètres</h5>
+            <fieldset id="menu_parametres">
+
+<!--                <label for="nb_petites_masses">Nombres de petites masses (1 kg) :</label>-->
+<!--                <input type="number" id="nb_petites_masses" class="u-full-width" min="1" max="5" value="0">-->
+<!--                <label for="nb_petites_masses">Nombres de grosses masses (5 kg) :</label>-->
+<!--                <input type="number" id="nb_grosses_masses" class="u-full-width" min="0" max="2" value="0">-->
+
+                <label for="checkbox_masse6">
+                    <input type="checkbox"  id="checkbox_masse6" onclick="ajoute_enleve_masse(6)">
+                    <span class="label-body">Grande masse</span>
+                </label>
+                <label for="checkbox_masse1">
+                    <input type="checkbox"  id="checkbox_masse1" onclick="ajoute_enleve_masse(1)">
+                    <span class="label-body">Petite masse</span>
+                </label>
+                <label for="checkbox_masse2">
+                    <input type="checkbox"  id="checkbox_masse2" onclick="ajoute_enleve_masse(2)">
+                    <span class="label-body">Petite masse</span>
+                </label>
+                <label for="checkbox_masse3">
+                    <input type="checkbox"  id="checkbox_masse3" onclick="ajoute_enleve_masse(3)">
+                    <span class="label-body">Petite masse</span>
+                </label>
+                <label for="checkbox_masse4">
+                    <input type="checkbox"  id="checkbox_masse4" onclick="ajoute_enleve_masse(4)">
+                    <span class="label-body">Petite masse</span>
+                </label>
+                <label for="checkbox_masse5">
+                    <input type="checkbox"  id="checkbox_masse5" onclick="ajoute_enleve_masse(5)">
+                    <span class="label-body">Petite masse</span>
+                </label>
+
+
+                <label>
+                    <input type="checkbox"  id="checkbox_cale" onclick="bloque_libere_piston()">
+                    <span class="label-body">Piston bloqué</span>
+                </label>
+
+            </fieldset>
+
+        </div>
+
+        <!-- animation centrale -->
+        <div class="six columns">
+            <svg viewBox="0 0 300 200" width="100%" height="100%" id="SVG_simulation">
+                <style>
+                    .static {
+                        cursor: not-allowed;
+                    }
+                    .draggable {
+                        cursor: move;
+                    }
+                </style>
+                <defs>
+                    <rect id="masse" width="14" height="16" y="149" fill="rgb(50,50,50)" stroke="black"/>
+                </defs>
+
+                <g transform="translate(0, 20)">
+
+                    <g id="piston_cale_et_masses">
+
+                        <rect id="piston" x="100" y="165" width="100" height="10" rx="3" fill="gray" stroke="black"/>
+
+                        <rect id="cale" x="184" y="167" width="30" height="6" rx="3" fill="black" visibility="hidden"/>
+
+                        <!-- les masses : 5 petites et une grande -->
+                        <g id="masse6" visibility="hidden">
+                            <rect x="130" y="125" width="40" height="40" fill="rgb(120,120,120)" stroke="black"/>
+                        </g>
+
+                        <use id="masse1" href="#masse" x="143" visibility="hidden"/>
+                        <use id="masse2" href="#masse" x="123" visibility="hidden"/>
+                        <use id="masse3" href="#masse" x="163" visibility="hidden"/>
+                        <use id="masse4" href="#masse" x="103" visibility="hidden"/>
+                        <use id="masse5" href="#masse" x="183" visibility="hidden"/>
+
+                    </g>
+
+                    <g id="cylindre" stroke="black">
+                        <line x1="100" y1="-20" x2="100" y2="175" />
+                        <line x1="100" y1="175" x2="200" y2="175"/>
+                        <line x1="200" y1="-20" x2="200" y2="175"/>
+                    </g>
+
+                    <rect id="masse8" class="draggable" width="14" height="16" x="20" y="159" fill="rgb(50,50,50)" stroke="black"/>
+
+                </g>
+            </svg>
+        </div>
+
+        <!-- menu de droite -->
+        <div class="three columns">
+            <h5>Visualisation</h5>
+            <p><strong>Pression : </strong><span id="texte_pression"></span> bar</p>
+            <p><strong>Température : </strong><span id="texte_temperature"></span> K</p>
+            <p>Le graphique PV + boutons pour restart et exporter</p>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

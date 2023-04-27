@@ -32,6 +32,7 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="scripts/general.js"></script>
     <script src="scripts/gestionSimulation.js"></script>
+    <script src="scripts/dragAndDrop.js"></script>
 
 </head>
 
@@ -46,41 +47,89 @@
     </div>
 
     <div class="row">
-        <!-- menu de gauche-->
+        <!-- animation centrale -->
+        <div class="nine columns">
+            <svg viewBox="0 0 300 300" width="100%" height="100%" id="SVG_simulation" onload="makeDraggable(evt)">
+                <style>
+                    .static {
+                        cursor: not-allowed;
+                    }
+                    .draggable {
+                        cursor: grab;
+                    }
+                    .dragged {
+                        cursor : grabbing;
+                    }
+                </style>
+                <defs>
+                    <linearGradient id="couleurMasseOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="orange" />
+                        <stop offset="25%" stop-color="rgb(255, 225, 189)" />
+                        <stop offset="75%" stop-color="orange" />
+                        <stop offset="100%" stop-color="orange" />
+                    </linearGradient>
+                    <linearGradient id="couleurMasseBleue" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="blue" />
+                        <stop offset="25%" stop-color="rgb(200, 200, 255)" />
+                        <stop offset="75%" stop-color="blue" />
+                        <stop offset="100%" stop-color="blue" />
+                    </linearGradient>
+                    <linearGradient id="couleurMasseVerte" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="green" />
+                        <stop offset="25%" stop-color="rgb(200, 255, 200)" />
+                        <stop offset="75%" stop-color="green" />
+                        <stop offset="100%" stop-color="green" />
+                    </linearGradient>
+                    <linearGradient id="couleurMasseViolette" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="rgb(250,50,250)" />
+                        <stop offset="25%" stop-color="rgb(255, 230, 255)" />
+                        <stop offset="75%" stop-color="rgb(250,50,250)" />
+                        <stop offset="100%" stop-color="rgb(250,50,250)" />
+                    </linearGradient>
+                    <linearGradient id="couleurMasseBleueVerte" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="rgb(50,200,200)" />
+                        <stop offset="25%" stop-color="rgb(200,250,250)" />
+                        <stop offset="75%" stop-color="rgb(50,200,200)" />
+                        <stop offset="100%" stop-color="rgb(50,200,200)" />
+                    </linearGradient>
+                    <linearGradient id="couleurMasseJaune" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#D7D700" />
+                        <stop offset="25%" stop-color="#FEFFA6" />
+                        <stop offset="75%" stop-color="#D7D700" />
+                        <stop offset="100%" stop-color="#D7D700" />
+                    </linearGradient>
+                </defs>
+
+
+                <g transform="translate(50, 70)">
+
+                    <g id="piston_cale_et_masses">
+                        <rect id="piston" x="100" y="165" width="100" height="10" rx="3" fill="gray" stroke="black"/>
+                        <rect id="cale" x="184" y="167" width="30" height="6" rx="3" fill="black" visibility="hidden"/>
+                    </g>
+
+                    <g id="cylindre" stroke="black">
+                        <line x1="100" y1="-70" x2="100" y2="175" />
+                        <line x1="100" y1="175" x2="200" y2="175"/>
+                        <line x1="200" y1="-70" x2="200" y2="175"/>
+                    </g>
+
+                    <rect id="masse6" class="draggable" width="40" height="40" x="130" y="125" fill="url(#couleurMasseViolette)" stroke="black"/>
+                    <rect id="masse1" class="draggable" width="14" height="18" x="-20" y="157" fill="url(#couleurMasseOrange)" stroke="black"/>
+                    <rect id="masse2" class="draggable" width="14" height="18" x="0" y="157" fill="url(#couleurMasseBleue)" stroke="black"/>
+                    <rect id="masse3" class="draggable" width="14" height="18" x="163" y="157" fill="url(#couleurMasseVerte)" stroke="black"/>
+                    <rect id="masse4" class="draggable" width="14" height="18" x="103" y="157" fill="url(#couleurMasseBleueVerte)" stroke="black"/>
+                    <rect id="masse5" class="draggable" width="14" height="18" x="183" y="157" fill="url(#couleurMasseJaune)" stroke="black"/>
+
+                    <rect width="105" height="5" fill="#e6c29a" stroke="black" x="-40" y="175"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- menu de droite -->
         <div class="three columns">
             <h5>Paramètres</h5>
             <fieldset id="menu_parametres">
-
-<!--                <label for="nb_petites_masses">Nombres de petites masses (1 kg) :</label>-->
-<!--                <input type="number" id="nb_petites_masses" class="u-full-width" min="1" max="5" value="0">-->
-<!--                <label for="nb_petites_masses">Nombres de grosses masses (5 kg) :</label>-->
-<!--                <input type="number" id="nb_grosses_masses" class="u-full-width" min="0" max="2" value="0">-->
-
-                <label for="checkbox_masse6">
-                    <input type="checkbox"  id="checkbox_masse6" onclick="ajoute_enleve_masse(6)">
-                    <span class="label-body">Grande masse</span>
-                </label>
-                <label for="checkbox_masse1">
-                    <input type="checkbox"  id="checkbox_masse1" onclick="ajoute_enleve_masse(1)">
-                    <span class="label-body">Petite masse</span>
-                </label>
-                <label for="checkbox_masse2">
-                    <input type="checkbox"  id="checkbox_masse2" onclick="ajoute_enleve_masse(2)">
-                    <span class="label-body">Petite masse</span>
-                </label>
-                <label for="checkbox_masse3">
-                    <input type="checkbox"  id="checkbox_masse3" onclick="ajoute_enleve_masse(3)">
-                    <span class="label-body">Petite masse</span>
-                </label>
-                <label for="checkbox_masse4">
-                    <input type="checkbox"  id="checkbox_masse4" onclick="ajoute_enleve_masse(4)">
-                    <span class="label-body">Petite masse</span>
-                </label>
-                <label for="checkbox_masse5">
-                    <input type="checkbox"  id="checkbox_masse5" onclick="ajoute_enleve_masse(5)">
-                    <span class="label-body">Petite masse</span>
-                </label>
-
 
                 <label>
                     <input type="checkbox"  id="checkbox_cale" onclick="bloque_libere_piston()">
@@ -89,58 +138,6 @@
 
             </fieldset>
 
-        </div>
-
-        <!-- animation centrale -->
-        <div class="six columns">
-            <svg viewBox="0 0 300 200" width="100%" height="100%" id="SVG_simulation">
-                <style>
-                    .static {
-                        cursor: not-allowed;
-                    }
-                    .draggable {
-                        cursor: move;
-                    }
-                </style>
-                <defs>
-                    <rect id="masse" width="14" height="16" y="149" fill="rgb(50,50,50)" stroke="black"/>
-                </defs>
-
-                <g transform="translate(0, 20)">
-
-                    <g id="piston_cale_et_masses">
-
-                        <rect id="piston" x="100" y="165" width="100" height="10" rx="3" fill="gray" stroke="black"/>
-
-                        <rect id="cale" x="184" y="167" width="30" height="6" rx="3" fill="black" visibility="hidden"/>
-
-                        <!-- les masses : 5 petites et une grande -->
-                        <g id="masse6" visibility="hidden">
-                            <rect x="130" y="125" width="40" height="40" fill="rgb(120,120,120)" stroke="black"/>
-                        </g>
-
-                        <use id="masse1" href="#masse" x="143" visibility="hidden"/>
-                        <use id="masse2" href="#masse" x="123" visibility="hidden"/>
-                        <use id="masse3" href="#masse" x="163" visibility="hidden"/>
-                        <use id="masse4" href="#masse" x="103" visibility="hidden"/>
-                        <use id="masse5" href="#masse" x="183" visibility="hidden"/>
-
-                    </g>
-
-                    <g id="cylindre" stroke="black">
-                        <line x1="100" y1="-20" x2="100" y2="175" />
-                        <line x1="100" y1="175" x2="200" y2="175"/>
-                        <line x1="200" y1="-20" x2="200" y2="175"/>
-                    </g>
-
-                    <rect id="masse8" class="draggable" width="14" height="16" x="20" y="159" fill="rgb(50,50,50)" stroke="black"/>
-
-                </g>
-            </svg>
-        </div>
-
-        <!-- menu de droite -->
-        <div class="three columns">
             <h5>Visualisation</h5>
             <p><strong>Pression : </strong><span id="texte_pression"></span> bar</p>
             <p><strong>Température : </strong><span id="texte_temperature"></span> K</p>

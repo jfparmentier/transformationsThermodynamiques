@@ -8,6 +8,9 @@ var pression = poids_masses.reduce(function(accumulateur, valeurCourante, index)
     return masses_posees[index] ? accumulateur + valeurCourante : accumulateur;
 }, 1); // en bar
 
+var position_masses_sol = [[-35, 157], [-15, 157], [5, 157], [25, 157], [45, 157], [-10, 135]];
+var position_masses_piston = [[143, -18], [123, -18], [163, -18], [103, -18], [183, -18], [130, -40]];
+
 var cv = 2.5 // capacité thermique divisée par R
 
 // parametres de simulation
@@ -41,18 +44,6 @@ function bloque_libere_piston() {
     debute_transformation();
 }
 
-function ajoute_enleve_masse(numero_masse) {
-    masses_posees[numero_masse - 1] = !masses_posees[numero_masse - 1];
-    var checkbox_masse = document.getElementById('checkbox_masse' + numero_masse);
-    checkbox_masse.checked = masses_posees[numero_masse - 1];
-
-    var masse_visibilite = masses_posees[numero_masse - 1] ? 'visible' : 'hidden';
-    var element_masse = document.getElementById("masse" + numero_masse);
-    element_masse.setAttribute('visibility', masse_visibilite);
-
-    debute_transformation();
-}
-
 function desactive_menu(desactive) {
     var menu_parametres = document.getElementById("menu_parametres");
     menu_parametres.disabled = desactive;
@@ -65,10 +56,45 @@ function animation(timestamp) {
         transformation(timestamp);
     }
 
-    // gestion drag and drop
+    // laché des masses
+    chute_masses();
 
     // on recommence
     requestAnimationFrame(animation);
+}
+
+function chute_masses() {
+    for (numero_masse = 1; numero_masse <= masses_posees.length; numero_masse++) {
+        var element_masse = document.getElementById("masse" + numero_masse);
+        if(element_masse.getAttribute("class") === 'static') {
+            // alors on vient de lacher la masse
+            // on regarde s'il est déposé sur le cylindre ou non
+            let x_gauche_cylindre = document.getElementById("cylindre").getBoundingClientRect().left;
+            let x_droit_cylindre = document.getElementById("cylindre").getBoundingClientRect().right;
+            let x_masse = element_masse.getBoundingClientRect().right;
+
+            if((x_masse > x_gauche_cylindre) && (x_masse < x_droit_cylindre)) {
+                element_masse.removeAttribute("transform");
+                let x = position_masses_piston[numero_masse - 1][0];
+                let y_offset = position_masses_piston[numero_masse - 1][1];
+                element_masse.setAttribute("x", x);
+                element_masse.setAttribute("y", 165 + y_piston() + y_offset);
+
+                masses_posees[numero_masse - 1] = true;
+                debute_transformation();
+            } else {
+                element_masse.removeAttribute("transform");
+                let x = position_masses_sol[numero_masse - 1][0];
+                let y = position_masses_sol[numero_masse - 1][1];
+                element_masse.setAttribute("x", x);
+                element_masse.setAttribute("y", y);
+
+                masses_posees[numero_masse - 1] = false;
+                debute_transformation();
+            }
+            element_masse.setAttribute("class",'draggable');
+        }
+    }
 }
 
 function transformation(timestamp) {
@@ -76,7 +102,6 @@ function transformation(timestamp) {
     if (temps_debut_simulation === null) {
         temps_debut_simulation = timestamp;
     }
-
 
     // partie transformation meca adiabatique
     if(piston_libre) {
@@ -87,8 +112,14 @@ function transformation(timestamp) {
         let h_t =  hauteur_piston + x * (2 - x) * (1 + (1-x)**2) * (hauteur_finale - hauteur_piston);
 
         var element_piston = document.getElementById("piston_cale_et_masses");
-        element_piston.setAttribute("transform", 'translate(0 ' + y_piston_from_hauteur(h_t) + ')')
         element_piston.setAttribute("transform", 'translate(0 ' + y_piston_from_hauteur(h_t) + ')');
+        for (numero_masse = 1; numero_masse <= masses_posees.length; numero_masse++) {
+            if(masses_posees[numero_masse - 1]) {
+                var element_masse = document.getElementById("masse" + numero_masse);
+                let y_masse = 88 + y_piston_from_hauteur(h_t) + position_masses_piston[numero_masse - 1][1];
+                element_masse.setAttribute("transform", 'translate(0 ' + y_masse + ')');
+            }
+        }
 
         if(progress > 1) {
             termine_transformation();

@@ -18,15 +18,15 @@ function initialisePage() {
 
     var cale = document.getElementById("cale");
     var cale_visibilite = piston_libre ? 'hidden' : 'visible';
-    cale.setAttribute('visibility',cale_visibilite);
+    cale.setAttribute('visibility', cale_visibilite);
 
     // affichage des masses
     for (numero_masse = 1; numero_masse <= masses_posees.length; numero_masse++) {
         var element_masse = document.getElementById("masse" + numero_masse);
-        var masse_visibilite = masses_posees[numero_masse - 1] ? 'visible' : 'hidden';
-        element_masse.setAttribute('visibility', masse_visibilite);
-        var checkbox_masse = document.getElementById('checkbox_masse' + numero_masse);
-        checkbox_masse.checked = masses_posees[numero_masse - 1];
+        let x = position_masses_sol[numero_masse - 1][0];
+        let y = position_masses_sol[numero_masse - 1][1];
+        element_masse.setAttribute("x", x);
+        element_masse.setAttribute("y", y);
     }
 
     // affichage menu de droite
@@ -40,3 +40,6 @@ function initialisePage() {
     // lancement du simulateur
     requestAnimationFrame(animation);
 }
+
+// gestion du drag and drop
+

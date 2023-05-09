@@ -11,6 +11,7 @@ function initialisePage() {
 
     // affiche la bonne pression et la bonne température
     affiche_pression_temperature(pression, temperature);
+    add_point_PVdiag(pression, hauteur_piston, temperature);
 
     // initialisation drag and drop
     statDragAndDrop();

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="JF Parmentier">
+    <meta name="description" content="">
+
+    <title>Transformations thermodynamiques</title>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
+
+    <!-- Favicon
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+
+    <!-- Javascript
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="scripts/dragAndDrop.js"></script>
+    <script src="scripts/general.js"></script>
+    <script src="scripts/gestionSimulation.js"></script>
+
+</head>
+
+<body onload="initialisePage()">
+
+<svg viewBox="0 0 1620 810" width="100%" height="100%" id="SVG_simulation">
+    <style>
+        .static {
+            cursor: not-allowed;
+        }
+        .draggable {
+            cursor: grab;
+        }
+        .dragged {
+            cursor : grabbing;
+        }
+        .push {
+            cursor : pointer;
+        }
+    </style>
+    <defs>        
+        <linearGradient id="couleurMasseOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="orange" />
+            <stop offset="25%" stop-color="rgb(255, 225, 189)" />
+            <stop offset="75%" stop-color="orange" />
+            <stop offset="100%" stop-color="orange" />
+        </linearGradient>
+        <linearGradient id="couleurMasseBleue" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="blue" />
+            <stop offset="25%" stop-color="rgb(200, 200, 255)" />
+            <stop offset="75%" stop-color="blue" />
+            <stop offset="100%" stop-color="blue" />
+        </linearGradient>
+        <linearGradient id="couleurMasseRouge" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="red" />
+            <stop offset="25%" stop-color="rgb(255, 200, 200)" />
+            <stop offset="75%" stop-color="red" />
+            <stop offset="100%" stop-color="red" />
+        </linearGradient>
+        <linearGradient id="couleurMasseVerte" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="green" />
+            <stop offset="25%" stop-color="rgb(200, 255, 200)" />
+            <stop offset="75%" stop-color="green" />
+            <stop offset="100%" stop-color="green" />
+        </linearGradient>
+        <linearGradient id="couleurMasseViolette" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgb(250,50,250)" />
+            <stop offset="25%" stop-color="rgb(255, 230, 255)" />
+            <stop offset="75%" stop-color="rgb(250,50,250)" />
+            <stop offset="100%" stop-color="rgb(250,50,250)" />
+        </linearGradient>
+        <linearGradient id="couleurMasseBleueVerte" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgb(50,200,200)" />
+            <stop offset="25%" stop-color="rgb(200,250,250)" />
+            <stop offset="75%" stop-color="rgb(50,200,200)" />
+            <stop offset="100%" stop-color="rgb(50,200,200)" />
+        </linearGradient>
+        <linearGradient id="couleurMasseJaune" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#D7D700" />
+            <stop offset="25%" stop-color="#FEFFA6" />
+            <stop offset="75%" stop-color="#D7D700" />
+            <stop offset="100%" stop-color="#D7D700" />
+        </linearGradient>
+    </defs>
+    
+    <!-- <rect id="tour" width="1620" height="810" x="0" y="0" fill-opacity="0" stroke="black"/> -->
+    
+    <g id="reservoir" stroke-width="2" visibility="hidden">
+        <rect x="429" y="397" width="547" height="333" fill="#cfe2f3"/>
+        <line x1="429" y1="397" x2="429" y2="730" stroke="black"/>
+        <line x1="429" y1="730" x2="976" y2="730" stroke="black"/>
+        <line x1="976" y1="397" x2="976" y2="730" stroke="black"/>
+    </g>
+
+    <g id="supportsMasse" fill="#b45f06" stroke="black">
+        <rect x="71" y="688" width="229" height="10"/>
+        <rect x="71" y="496" width="229" height="10"/>
+    </g>
+
+
+    <rect id="cylindre_interieur" x="666" y="397" width="78" height="302" fill="white"/>
+    <!-- <rect id="gaz" x="666" y="502" width="78" height="197" fill="#f6b26b"/> -->
+    <g id="cylindre_contour" stroke-width="2">
+        <line x1="666" y1="397" x2="666" y2="699" stroke="black"/>
+        <line x1="666" y1="699" x2="744" y2="699" stroke="black"/>
+        <line x1="744" y1="397" x2="744" y2="699" stroke="black"/>
+    </g>    
+
+    <!-- <polygon id="piston" fill="#666666" points="666, 521 666, 502 697, 502 697, 209 621, 209 621, 193 791, 193 791, 209 715, 209 715, 502 744, 502 744, 521" stroke="black" /> -->
+    <g id="piston_cale">
+        <polygon id="piston" fill="#666666" stroke="black" points="666, 699 666, 680 697, 680 697, 387 621, 387 621, 371 791, 371 791, 387 715, 387 715, 680 744, 680 744, 699" />
+        <g id="cale" class="push" fill="rgb(0,0,30)" onclick="deplace_cale()">
+            <rect x="630" y="685" width="32" height="9" rx="3"/>
+            <rect x="625" y="680" width="11" height="19" rx="1"/>
+        </g>
+    </g>
+
+    <g id="capteur">
+        <rect x="705" y="679" width="68" height="3" fill="#ff0000" stroke="black"/>
+        <rect x="773" y="673" width="109" height="15" fill="#666666" stroke="black"/>
+        <polyline fill="none" stroke="black" stroke-width="3" points="882.201, 680.611 889.143, 679.846 896.085, 677.643 900.554, 675.941 906.445, 673.645 910.434, 669.002 913.899, 664.024 915.559, 659.237 916.837, 653.396 917.2, 644.876 918.227, 637.504 917.684, 629.695 917.614, 623.178 916.079, 616.478 916.497, 608.384 917.009, 600.918 918.817, 595.221 919.575, 588.997 921.294, 581.145 923.033, 571.86 925.306, 564.777 927.478, 556.019 929.662, 547.69 932.373, 539.647 933.87, 531.033 936.51, 522.037 938.425, 511.018 938.94, 497.422 940.456, 489.957 941.585, 480.098 942.503, 467.935 942.335, 457.498 942.324, 347.864 "/>
+        <!-- <path fill="none" stroke="black" stroke-width="3" d="M 882.201, 680.611 L 889.143, 679.846 L 896.085, 677.643 L 900.554, 675.941 L 906.445, 673.645 L 910.434, 669.002 L 913.899, 664.024 L 915.559, 659.237 L 916.837, 653.396 L 917.2, 644.876 L 918.227, 637.504 L 917.684, 629.695 L 917.614, 623.178 L 916.079, 616.478 L 916.497, 608.384 L 917.009, 600.918 L 918.817, 595.221 L 919.575, 588.997 L 921.294, 581.145 L 923.033, 571.86 L 925.306, 564.777 L 927.478, 556.019 L 929.662, 547.69 L 932.373, 539.647 L 933.87, 531.033 L 936.51, 522.037 L 938.425, 511.018 L 938.94, 497.422 L 940.456, 489.957 L 941.585, 480.098 L 942.503, 467.935 L 942.335, 457.498 L 942.324, 347.864"/> -->
+        <rect x="832" y="232" width="220" height="116" fill="none" stroke="black" stroke-width="3"/>
+        <text id="affichage_pression" x="885" y="275" font-family="Arial" font-size="30" stroke-width="2.6">15.2 bar</text>
+        <text id="affichage_temperature" x="903" y="330" font-family="Arial" font-size="30" stroke-width="2.6">300 K</text>
+    </g>
+
+    <g id="masses">
+        <rect id="masse10" name="10" class="draggable" x="243" y="611" width="54" height="77" fill="url(#couleurMasseBleue)" stroke="black"/>
+        <rect id="masse9" name="9" class="draggable" x="179" y="611" width="54" height="77" fill="url(#couleurMasseBleue)" stroke="black"/>
+        <rect id="masse8" name="8" class="draggable" x="124" y="627" width="43" height="61" fill="url(#couleurMasseOrange)" stroke="black"/>
+        <rect id="masse7" name="7" class="draggable" x="74" y="627" width="43" height="61" fill="url(#couleurMasseOrange)" stroke="black"/>
+        <rect id="masse6" name="6" class="draggable" x="261" y="448" width="34" height="48" fill="url(#couleurMasseRouge)" stroke="black"/>
+        <rect id="masse5" name="5" class="draggable" x="220" y="448" width="34" height="48" fill="url(#couleurMasseRouge)" stroke="black"/>
+        <rect id="masse4" name="4" class="draggable" x="179" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
+        <rect id="masse3" name="3" class="draggable" x="147" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
+        <rect id="masse2" name="2" class="draggable" x="113" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+        <rect id="masse1" name="1" class="draggable" x="90" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+    </g>
+
+    <g>
+        <rect x="1149" y="20" width="423" height="114" fill="none" stroke="black" stroke-width="2"/>
+        <text x="1225" y="59" font-family="Arial" font-size="30">Parois isolées</text>
+        <text x="1225" y="116" font-family="Arial" font-size="30">Réservoir caché</text>
+    </g>
+
+    <g id="diagrammePV" transform="translate(1148, 164)">
+        <rect x="0" y="0" width="423" height="429" fill="none" stroke="black" stroke-width="2"/>
+        <line x1="0" y1="59" x2="423" y2="59" stroke="black" stroke-width="2"/>
+        <text x="77" y="39" font-family="Arial" font-size="30">Diagramme PV</text>
+    </g>
+
+</svg>
+
+</body>
+</html>

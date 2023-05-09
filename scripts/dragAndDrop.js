@@ -4,8 +4,8 @@ var startY = 0;
 var currentElement = null;
 
 // positions des masses
-var x_masses_supports = [90, 113, 147, 179, 220, 261, 74, 124, 179, 243];
-var x_masses_piston = [677, 719, 631, 755, 669, 709, 624, 745, 641, 721];
+var x_masses_supports = [80, 113, 147, 179, 220, 261, 80, 130, 185, 250];
+var x_masses_piston = [665, 720, 631, 755, 669, 709, 624, 745, 641, 721];
 
 function getMousePosition(evt) {
     var svg = document.getElementById("SVG_simulation");

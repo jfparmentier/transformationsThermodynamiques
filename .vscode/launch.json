@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open lecteurSVGinterface.html",
+            "name": "Transformations thermodynamiques",
             "file": "/Users/zebulon/Sites/transformationsThermodynamiques/index.html"
         }
     ]

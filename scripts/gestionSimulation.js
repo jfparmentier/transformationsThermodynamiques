@@ -140,7 +140,8 @@ function start_transformation() {
     // duree simulation
     var duree_simulation = 0;
     if((temperature != temperature_finale) || (pression == !pression_finale) || (hauteur_piston != hauteur_finale)) {
-        duree_simulation = adiabatique ? 1000 : 2000;
+        //duree_simulation = adiabatique ? 1000 : 2000;
+        duree_simulation = 1000;
     }
 
     let start = null;

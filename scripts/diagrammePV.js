@@ -29,7 +29,7 @@ function add_point_PVdiag(P, V, T) {
     var new_point = document.createElementNS("http://www.w3.org/2000/svg",'circle');
     new_point.setAttribute("cx", Math.round(x*100)/100);
     new_point.setAttribute("cy", Math.round(y*100)/100);
-    new_point.setAttribute("r", 4);
+    new_point.setAttribute("r", 5);
     new_point.setAttribute("fill", couleur_points);
     new_point.setAttribute("stroke",'black');
     points_diagPV.appendChild(new_point);

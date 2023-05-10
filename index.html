@@ -147,20 +147,20 @@
         <rect id="masse1" name="1" class="draggable" x="80" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
     </g>
 
-    <g>
-        <rect x="1149" y="20" width="424" height="114" fill="none" stroke="black" stroke-width="2"/>
+    <g transform="translate(1148, 20)">
+        <rect x="0" y="0" width="424" height="114" fill="none" stroke="black" stroke-width="2"/>
         
-        <text x="1225" y="59" font-family="Arial" font-size="30">Parois isolées</text>
-        <text x="1225" y="116" font-family="Arial" font-size="30">Réservoir toujours visible</text>
+        <text x="76" y="39" font-family="Arial" font-size="30">Parois isolées</text>
+        <text x="76" y="96" font-family="Arial" font-size="30">Réservoir toujours visible</text>
         
-        <g transform="translate(1156, 25) scale(0.09, 0.09)" onclick="select_adiabatique()">
+        <g transform="translate(7, 5) scale(0.09, 0.09)" onclick="select_adiabatique()">
             <rect x="0" y="32" width="448" height="448" fill="white" stroke="none"/>
             <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path id="bouton_adiab_checked" d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
             <path id="bouton_adiab_unchecked" visibility="hidden" d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96z"/>        
         </g>
 
-        <g transform="translate(1156, 82) scale(0.09, 0.09)" onclick="set_reservoir_visibility()">
+        <g transform="translate(7, 62) scale(0.09, 0.09)" onclick="set_reservoir_visibility()">
             <rect x="0" y="32" width="448" height="448" fill="white" stroke="none"/>
             <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path id="bouton_reservoir_visible_checked" visibility="hidden" d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>

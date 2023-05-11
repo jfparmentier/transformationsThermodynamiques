@@ -18,17 +18,29 @@ function getMousePosition(evt) {
 }
 
 // Fonction pour déplacer un élément rect
-function moveRect(event) {
+function moveElement(event) {
   // Vérifier si un élément rect est sélectionné
   if (currentElement) {
     // Calculer la nouvelle position du rect
     var coord = getMousePosition(event);
-    var newX = coord.x - startX;
-    var newY = coord.y - startY;
 
-    // Déplacer le rect en utilisant les propriétés x et y de l'élément SVG
-    currentElement.setAttribute('x', newX);
-    currentElement.setAttribute('y', newY);
+    if(currentElement.classList.contains('btn_range')) {
+        // on ne deplace que la coordonnee x dans les limites
+        var newX = coord.x - startX;
+        newX = Math.max(newX, 0);
+        newX = Math.min(newX, document.getElementById("range_temp_couleurs").getAttribute("width"));
+        // Déplacer le rect en utilisant les propriétés x et y de l'élément SVG
+        currentElement.setAttribute('x', newX);
+    }
+
+    if(currentElement.classList.contains('masse')) {
+        var newX = coord.x - startX;
+        var newY = coord.y - startY;
+    
+        // Déplacer le rect en utilisant les propriétés x et y de l'élément SVG
+        currentElement.setAttribute('x', newX);
+        currentElement.setAttribute('y', newY);
+    }
   }
 }
 
@@ -47,23 +59,30 @@ function startMove(event) {
         event.preventDefault();
 
         // change mouse icon
-        this.setAttribute("class",'dragged');
+        this.classList.replace('draggable','dragged');
     }
 }
 
 // Fonction pour arrêter le déplacement d'un élément rect
 function stopMove(event) {
-    // mouve element to the correct position
-    set_element_final_position();
+    if(currentElement) {
+        // move element to the correct position
+        if(currentElement.classList.contains('masse')) {
+            set_mass_final_position();
+        }
+        if(currentElement.classList.contains('btn_range')) {
+            //
+        }
 
-    // change mouse icon
-    currentElement.setAttribute("class",'draggable');
-  
-    // no element is no more selected
-    currentElement = null;
+        // change mouse icon
+        currentElement.classList.replace('dragged','draggable');
+    
+        // no element is no more selected
+        currentElement = null;
+    }
 }
 
-function set_element_final_position() {
+function set_mass_final_position() {
     let x_masse_gauche = Number(currentElement.getAttribute("x"));
     let x_masse_droit = Number(x_masse_gauche) + Number(currentElement.getAttribute("width"));
     let y_masse_haut = Number(currentElement.getAttribute("y"));
@@ -98,7 +117,7 @@ function set_element_final_position() {
 
 // drag and drop initialisation
 function statDragAndDrop() {
-    // Ajouter un écouteur pour chaque élément draggable afin de lancer le déplacement
+    // Ajouter un écouteur pour chaque élément rect draggable (masses) afin de lancer le déplacement
     var draggable_elements = document.querySelectorAll('rect.draggable');
 
     draggable_elements.forEach(function(element) {
@@ -107,7 +126,8 @@ function statDragAndDrop() {
     });
 
     // Ajouter un écouteur pour suivre le mouvement de la souris
-    var svg = document.getElementById("SVG_simulation");
-    svg.addEventListener('mousemove', moveRect);
+    // var svg = document.getElementById("SVG_simulation");
+    document.addEventListener('mousemove', moveElement);
+    document.addEventListener('mouseup', stopMove);
 }
 

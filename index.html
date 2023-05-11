@@ -91,6 +91,11 @@
             <stop offset="75%" stop-color="#D7D700" />
             <stop offset="100%" stop-color="#D7D700" />
         </linearGradient>
+        <linearGradient id="couleurRangeTemperature" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0000FF" />
+            <stop offset="50%" stop-color="#FFFF00" />
+            <stop offset="100%" stop-color="#FF0000" />
+        </linearGradient>
     </defs>
     
     <!-- <rect id="tour" width="1620" height="810" x="0" y="0" fill-opacity="0" stroke="black"/> -->
@@ -100,13 +105,18 @@
         <line x1="429" y1="397" x2="429" y2="730" stroke="black"/>
         <line x1="429" y1="730" x2="976" y2="730" stroke="black"/>
         <line x1="976" y1="397" x2="976" y2="730" stroke="black"/>
+
+        <g transform="translate(429, 769)" id="range_temperature" stroke-width="2">
+            <rect id="range_temp_couleurs" x="0" y="0" width="547" height="16" fill="url(#couleurRangeTemperature)" stroke="black"/>
+            <rect class="btn_range draggable" id="bouton_range_T" x="50" y="-9" width="24" height="34" stroke="black" fill="white"/>
+        </g>
     </g>
+
 
     <g id="supportsMasse" fill="#b45f06" stroke="black">
         <rect x="71" y="688" width="229" height="10"/>
         <rect x="71" y="496" width="229" height="10"/>
     </g>
-
 
     <rect id="cylindre_interieur" x="666" y="397" width="78" height="302" fill="white"/>
     <!-- <rect id="gaz" x="666" y="502" width="78" height="197" fill="#f6b26b"/> -->
@@ -135,16 +145,16 @@
     </g>
 
     <g id="masses">
-        <rect id="masse10" name="10" class="draggable" x="250" y="627" width="43" height="61" fill="url(#couleurMasseBleue)" stroke="black"/>
-        <rect id="masse9" name="9" class="draggable" x="185" y="627" width="43" height="61" fill="url(#couleurMasseBleue)" stroke="black"/>
-        <rect id="masse8" name="8" class="draggable" x="130" y="640" width="34" height="48" fill="url(#couleurMasseOrange)" stroke="black"/>
-        <rect id="masse7" name="7" class="draggable" x="80" y="640" width="34" height="48" fill="url(#couleurMasseOrange)" stroke="black"/>
-        <rect id="masse6" name="6" class="draggable" x="261" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
-        <rect id="masse5" name="5" class="draggable" x="220" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
-        <rect id="masse4" name="4" class="draggable" x="179" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
-        <rect id="masse3" name="3" class="draggable" x="147" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
-        <rect id="masse2" name="2" class="draggable" x="113" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
-        <rect id="masse1" name="1" class="draggable" x="80" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+        <rect id="masse10" name="10" class="masse draggable" x="250" y="627" width="43" height="61" fill="url(#couleurMasseBleue)" stroke="black"/>
+        <rect id="masse9" name="9" class="masse draggable" x="185" y="627" width="43" height="61" fill="url(#couleurMasseBleue)" stroke="black"/>
+        <rect id="masse8" name="8" class="masse draggable" x="130" y="640" width="34" height="48" fill="url(#couleurMasseOrange)" stroke="black"/>
+        <rect id="masse7" name="7" class="masse draggable" x="80" y="640" width="34" height="48" fill="url(#couleurMasseOrange)" stroke="black"/>
+        <rect id="masse6" name="6" class="masse draggable" x="261" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
+        <rect id="masse5" name="5" class="masse draggable" x="220" y="458" width="27" height="38" fill="url(#couleurMasseViolette)" stroke="black"/>
+        <rect id="masse4" name="4" class="masse draggable" x="179" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+        <rect id="masse3" name="3" class="masse draggable" x="147" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+        <rect id="masse2" name="2" class="masse draggable" x="113" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
+        <rect id="masse1" name="1" class="masse draggable" x="80" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
     </g>
 
     <g transform="translate(1148, 20)">
@@ -226,6 +236,5 @@
     </g>
 
 </svg>
-
 </body>
 </html>

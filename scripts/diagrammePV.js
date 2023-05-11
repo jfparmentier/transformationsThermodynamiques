@@ -9,11 +9,12 @@ var couleur_points = "blue";
 function set_color(cercle_svg) {
     couleur_points = cercle_svg.getAttribute("fill");
 
+    // deselectionne l'ancien bouton
     var btns_couleur_svg = document.querySelectorAll('circle.btn_couleur_svg');
     btns_couleur_svg.forEach(function(element) {
         element.setAttribute("stroke-width", 1);
-        console.log(element);
     });
+    // selectionne le nouveau
     cercle_svg.setAttribute("stroke-width", 3);
 
 }

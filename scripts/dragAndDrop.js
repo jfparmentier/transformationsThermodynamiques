@@ -26,11 +26,18 @@ function moveElement(event) {
 
     if(currentElement.classList.contains('btn_range')) {
         // on ne deplace que la coordonnee x dans les limites
+        let x_min = - 12;
+        let x_max = parseFloat(document.getElementById("range_temp_couleurs").getAttribute("width"))-12;
+
         var newX = coord.x - startX;
-        newX = Math.max(newX, 0);
-        newX = Math.min(newX, document.getElementById("range_temp_couleurs").getAttribute("width"));
+        newX = Math.max(newX, x_min);
+        newX = Math.min(newX, x_max);
         // Déplacer le rect en utilisant les propriétés x et y de l'élément SVG
         currentElement.setAttribute('x', newX);
+
+        // change la temperature du reservoir sans lancer la simulation
+        temperature_reservoir = Math.round(temperature_reservoir_min + (temperature_reservoir_max - temperature_reservoir_min)/(x_max - x_min) * (newX - x_min));
+        affiche_temperature_reservoir();
     }
 
     if(currentElement.classList.contains('masse')) {
@@ -72,6 +79,7 @@ function stopMove(event) {
         }
         if(currentElement.classList.contains('btn_range')) {
             //
+            start_transformation();
         }
 
         // change mouse icon

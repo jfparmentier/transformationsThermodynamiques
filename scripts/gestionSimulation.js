@@ -4,6 +4,8 @@ var adiabatique = true;
 
 var reservoir_toujours_visible = false;
 var temperature_reservoir = 300;
+var temperature_reservoir_min = 200;
+var temperature_reservoir_max = 600;
 
 var hauteur_piston = 0.5; // en relatif entre 0 et 1
 var temperature = 300; // en K
@@ -12,7 +14,7 @@ const cv = 2.5 // diatomic gaz (Cv/R)
 
 var masses_posees = [false, false, false, false, false, false, false, false, false, false];
 //const poids_masses = [0.1, 0.1, 0.2, 0.2, 0.4, 0.4, 0.8, 0.8, 1.6, 1.6];
-const poids_masses = [0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.5, 0.5, 1, 1];
+const poids_masses = [0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.4, 0.4, 0.8, 0.8];
 
 var transformation_en_cours = false;
 
@@ -174,14 +176,14 @@ function start_transformation() {
 
             transformation_en_cours = false;
 
-            affiche_pression_temperature(Math.round(pression*100)/100, Math.round(temperature));
+            affiche_pression_temperature(pression.toPrecision(3), Math.round(temperature));
             add_point_PVdiag(pression, hauteur_piston, temperature);
         }
 
     }
 
     if(duree_simulation > 0) {
-        affiche_pression_temperature('---', '---');
+        affiche_pression_temperature('-.----', '-----');
         transformation_en_cours = true;
         requestAnimationFrame(step);
     }

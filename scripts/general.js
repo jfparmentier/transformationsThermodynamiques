@@ -33,16 +33,32 @@ function affiche_temperature_reservoir() {
     affichage_temperature_reservoir.innerHTML = temperature_reservoir.toString() + " K";
 
     // change la couleur
-    fluide_reservoir = document.getElementById("fluide_reservoir");
-    var x = (temperature_reservoir - temperature_reservoir_min)/(temperature_reservoir_max - temperature_reservoir_min);
-    let r; let g; let b;
+    var fluide_reservoir = document.getElementById("fluide_reservoir");
+    var bouton_range_T = document.getElementById("bouton_range_T");
+
+    let x = (temperature_reservoir - temperature_reservoir_min)/(temperature_reservoir_max - temperature_reservoir_min);    
+    let depart, arrivee, couleur_lab, couleur_rgb, progress;
     if(x < 0.5) {
-        r = 2*x*255; g = 2*x*255; b = (1-2*x)*255;
+        //depart = rgb2lab([0,0,255]);
+        //arrivee = rgb2lab([255, 255, 0]);
+        depart = [0, 0, 255];
+        arrivee = [0, 255, 0];
+
+        progress = 2*x;
     } else {
-        r = 255; g = (2-2*x)*255; b = 0;
+        // depart = rgb2lab([255,255,0]);
+        // arrivee = rgb2lab([255, 0, 0]);
+        depart = [0, 255, 0];
+        arrivee = [255, 0, 0];
+
+        progress = 2*x - 1;
     }
-    let couleur = "rgb(" + r + "," + g + "," + b + ")";
+    // couleur_lab = arrivee.map((a, i) => 2*progress*(a - depart[i]) + depart[i]);
+    // couleur_rgb = lab2rgb(couleur_lab);
+    couleur_rgb = arrivee.map((a, i) => Math.round(progress*(a - depart[i]) + depart[i]));
+
+    let couleur = "rgb(" + couleur_rgb[0] + "," + couleur_rgb[1] + "," + couleur_rgb[2] + ")";
     fluide_reservoir.setAttribute("fill", couleur);
-    
+    bouton_range_T.setAttribute("fill", couleur);
 }
 

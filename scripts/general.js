@@ -36,29 +36,37 @@ function affiche_temperature_reservoir() {
     var fluide_reservoir = document.getElementById("fluide_reservoir");
     var bouton_range_T = document.getElementById("bouton_range_T");
 
-    let x = (temperature_reservoir - temperature_reservoir_min)/(temperature_reservoir_max - temperature_reservoir_min);    
-    let depart, arrivee, couleur_lab, couleur_rgb, progress;
-    if(x < 0.5) {
-        //depart = rgb2lab([0,0,255]);
-        //arrivee = rgb2lab([255, 255, 0]);
-        depart = [0, 0, 255];
-        arrivee = [0, 255, 0];
-
-        progress = 2*x;
-    } else {
-        // depart = rgb2lab([255,255,0]);
-        // arrivee = rgb2lab([255, 0, 0]);
-        depart = [0, 255, 0];
-        arrivee = [255, 0, 0];
-
-        progress = 2*x - 1;
-    }
-    // couleur_lab = arrivee.map((a, i) => 2*progress*(a - depart[i]) + depart[i]);
-    // couleur_rgb = lab2rgb(couleur_lab);
-    couleur_rgb = arrivee.map((a, i) => Math.round(progress*(a - depart[i]) + depart[i]));
-
+    let x = (temperature_reservoir - temperature_reservoir_min)/(temperature_reservoir_max - temperature_reservoir_min);
+    x = 0.75*x + 0.125;
+    let couleur_rgb = jet_colormap(x, 'jet', false);
     let couleur = "rgb(" + couleur_rgb[0] + "," + couleur_rgb[1] + "," + couleur_rgb[2] + ")";
     fluide_reservoir.setAttribute("fill", couleur);
     bouton_range_T.setAttribute("fill", couleur);
 }
 
+function jet_colormap(x) {
+    let r, g, b;    
+    if(x < 0.125) {
+        r = 0;
+        g = 0;
+        b = 0.5 + 4*x;
+    } else if(x < 0.375) {
+        r = 0;
+        g = 4*(x-0.125);
+        b = 1;
+    } else if(x < 0.625) {
+        r = 4*(x - 0.375);
+        g = 1;
+        b = 1 - 4*(x - 0.375);
+    } else if(x < 0.875) {
+        r = 1;
+        g = 1 - 4*(x - 0.625);
+        b = 0;
+    } else {
+        r = 1 - 4*(x - 0.875);
+        g = 0;
+        b = 0;
+
+    }
+    return [Math.round(r*255), Math.round(g*255), Math.round(b*255)];
+}

@@ -4,8 +4,8 @@ var adiabatique = true;
 
 var reservoir_toujours_visible = false;
 var temperature_reservoir = 300;
-var temperature_reservoir_min = 200;
-var temperature_reservoir_max = 600;
+var temperature_reservoir_min = 100;
+var temperature_reservoir_max = 1600;
 
 var hauteur_piston = 0.5; // en relatif entre 0 et 1
 var temperature = 300; // en K

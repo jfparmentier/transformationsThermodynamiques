@@ -25,15 +25,17 @@ function add_point_PVdiag(P, V, T) {
 
         var x = offset_x + sx * V;
         var y = offset_y + sy * P;
-
-        var points_diagPV = document.getElementById("points_diagPV");
-        var new_point = document.createElementNS("http://www.w3.org/2000/svg",'circle');
-        new_point.setAttribute("cx", Math.round(x*100)/100);
-        new_point.setAttribute("cy", Math.round(y*100)/100);
-        new_point.setAttribute("r", 5);
-        new_point.setAttribute("fill", couleur_points);
-        new_point.setAttribute("stroke",'black');
-        points_diagPV.appendChild(new_point);
+        if((x <= 371) && (y >= 53)) {
+            var points_diagPV = document.getElementById("points_diagPV");
+            var new_point = document.createElementNS("http://www.w3.org/2000/svg",'circle');
+            new_point.setAttribute("cx", Math.round(x*100)/100);
+            new_point.setAttribute("cy", Math.round(y*100)/100);
+            new_point.setAttribute("r", 5);
+            new_point.setAttribute("fill", couleur_points);
+            new_point.setAttribute("stroke",'black');
+            points_diagPV.appendChild(new_point);
+    
+        }
     }
 }
 

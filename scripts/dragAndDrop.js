@@ -35,8 +35,10 @@ function moveElement(event) {
         // Déplacer le rect en utilisant les propriétés x et y de l'élément SVG
         currentElement.setAttribute('x', newX);
 
+        let progress = (newX - x_min) / (x_max - x_min);
         // change la temperature du reservoir sans lancer la simulation
-        temperature_reservoir = Math.round(temperature_reservoir_min + (temperature_reservoir_max - temperature_reservoir_min)/(x_max - x_min) * (newX - x_min));
+        temperature_reservoir = Math.round(temperature_reservoir_min + (temperature_reservoir_max - temperature_reservoir_min) * progress);
+        temperature_reservoir = Math.round(100*Math.pow(16, progress));
         affiche_temperature_reservoir();
     }
 

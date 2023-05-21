@@ -126,14 +126,14 @@
         <rect x="71" y="496" width="229" height="10"/>
     </g>
 
+    
     <rect id="cylindre_interieur" x="666" y="397" width="78" height="302" fill="white"/>
-    <!-- <rect id="gaz" x="666" y="502" width="78" height="197" fill="#f6b26b"/> -->
+
     <g id="cylindre_contour" stroke-width="2">
-        <polyline id="piston_conducteur" visibility="hidden" fill="none" points="666,397 666,699 744,699 744,397" stroke="black" />
+        <polyline id="piston_conducteur" visibility="hidden" fill="none" points="676,397 666,397 666,699 744,699 744,397 734,397" stroke="black" stroke-width="3"/>
         <polygon id="piston_isole" fill="#CCCCCC" points="666,397 666,699 744,699 744,397 759,397 759,714 651,714 651,397" stroke="black" />
     </g>    
 
-    <!-- <polygon id="piston" fill="#666666" points="666, 521 666, 502 697, 502 697, 209 621, 209 621, 193 791, 193 791, 209 715, 209 715, 502 744, 502 744, 521" stroke="black" /> -->
     <g id="piston_cale">
         <polygon id="piston" fill="#666666" stroke="black" points="666, 699 666, 680 697, 680 697, 387 621, 387 621, 371 791, 371 791, 387 715, 387 715, 680 744, 680 744, 699" />
         <g id="cale" class="push" fill="rgb(0,0,30)" onclick="deplace_cale()">

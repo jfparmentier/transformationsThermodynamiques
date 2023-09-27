@@ -130,8 +130,14 @@
     <rect id="cylindre_interieur" x="666" y="397" width="78" height="302" fill="white"/>
 
     <g id="cylindre_contour" stroke-width="2">
-        <polyline id="piston_conducteur" visibility="hidden" fill="none" points="676,397 666,397 666,699 744,699 744,397 734,397" stroke="black" stroke-width="3"/>
-        <polygon id="piston_isole" fill="#CCCCCC" points="666,397 666,699 744,699 744,397 759,397 759,714 651,714 651,397" stroke="black" />
+        <polyline id="piston_conducteur" visibility="hidden" fill="none" points="666,395 666,699 744,699 744,395" stroke="black" stroke-width="3"/>
+        <polygon id="piston_isole" fill="#CCCCCC" points="666,396 666,699 744,699 744,396 759,396 759,714 651,714 651,396" stroke="black" />
+        <g>
+            <line x1="676" y1="396" x2="666" y2="396" stroke="black" stroke-width="3"/>
+            <line x1="744" y1="396" x2="734" y2="396" stroke="black" stroke-width="3"/>
+            <line x1="676" y1="672" x2="666" y2="672" stroke="black" stroke-width="3"/>
+            <line x1="744" y1="672" x2="734" y2="672" stroke="black" stroke-width="3"/>    
+        </g>
     </g>    
 
     <g id="piston_cale">
@@ -165,10 +171,10 @@
         <rect id="masse1" name="1" class="masse draggable" x="80" y="468" width="19" height="28" fill="url(#couleurMasseVerte)" stroke="black"/>
     </g>
 
-    <g transform="translate(1148, 20)">
+    <g transform="translate(20, 20)">
         <rect x="0" y="0" width="424" height="114" fill="none" stroke="black" stroke-width="2"/>
         
-        <text x="76" y="39" font-family="Arial" font-size="30">Parois isolées</text>
+        <text x="76" y="39" font-family="Arial" font-size="30">Parois isolantes</text>
         <text x="76" y="96" font-family="Arial" font-size="30">Réservoir toujours visible</text>
         
         <g transform="translate(7, 5) scale(0.09, 0.09)" onclick="select_adiabatique()">
@@ -186,7 +192,7 @@
         </g>
     </g>
 
-    <g id="diagrammePV_menu" transform="translate(1148, 164)">
+    <g id="diagrammePV_menu" transform="translate(1148, 20)">
         <rect x="0" y="0" width="424" height="59" fill="none" stroke="black" stroke-width="2"/>
         <text x="77" y="39" font-family="Arial" font-size="30">Diagramme PV</text>
 
